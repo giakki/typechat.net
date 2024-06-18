@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 using Microsoft.SemanticKernel.TextGeneration;
+using Microsoft.TypeChat.Config;
 
 namespace Microsoft.TypeChat;
 

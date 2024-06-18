@@ -6,6 +6,8 @@ using HealthData;
 using Math;
 using Microsoft.TypeChat;
 using Microsoft.TypeChat.Classification;
+using Microsoft.TypeChat.Examples;
+using Microsoft.TypeChat.LanguageModels;
 using Plugins;
 using Restaurant;
 using Sentiment;
@@ -23,7 +25,7 @@ public class MultiSchemaApp : ConsoleApp
 
     public MultiSchemaApp()
     {
-        _model = new LanguageModel(Config.LoadOpenAI());
+        _model = new OpenAILanguageModel(ExampleConfig.LoadOpenAI());
         _childApps = new TextRequestRouter<IInputHandler>(_model);
         InitApps();
     }

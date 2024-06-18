@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Config;
+using Microsoft.TypeChat.LanguageModels;
 using Microsoft.TypeChat.Tests;
 
 namespace Microsoft.TypeChat.UnitTests;
@@ -24,7 +26,7 @@ public class TestLanguageModel : TypeChatTest
     async Task RunRetry(OpenAIConfig config)
     {
         var handler = MockHttpHandler.ErrorResponder(429);
-        using LanguageModel model = new LanguageModel(config, null, new HttpClient(handler));
+        using OpenAILanguageModel model = new OpenAILanguageModel(config, null, new HttpClient(handler));
         await Assert.ThrowsAnyAsync<Exception>(() => model.CompleteAsync("Hello"));
         Assert.Equal(config.MaxRetries + 1, handler.RequestCount);
     }
@@ -35,7 +37,7 @@ public class TestLanguageModel : TypeChatTest
         var config = MockOpenAIConfig();
         var (jsonResponse, expected) = CannedResponse();
         var handler = new MockHttpHandler(jsonResponse);
-        using LanguageModel model = new LanguageModel(config, null, new HttpClient(handler));
+        using OpenAILanguageModel model = new OpenAILanguageModel(config, null, new HttpClient(handler));
         var modelResponse = await model.CompleteAsync("Hello");
         Assert.Equal(expected, modelResponse.Trim());
     }
@@ -50,7 +52,7 @@ public class TestLanguageModel : TypeChatTest
 
         var (jsonResponse, expected) = CannedResponse();
         var handler = new MockHttpHandler(jsonResponse);
-        LanguageModel model = new LanguageModel(config, null, new HttpClient(handler));
+        OpenAILanguageModel model = new OpenAILanguageModel(config, null, new HttpClient(handler));
         await model.CompleteAsync("Hello");
 
         Assert.Equal(config.Endpoint.ToLower(), handler.LastRequest.RequestUri.AbsoluteUri.ToLower());
@@ -58,7 +60,7 @@ public class TestLanguageModel : TypeChatTest
         model.Dispose();
 
         config.Endpoint = "https://yourresourcename.openai.azure.com/";
-        model = new LanguageModel(config, null, new HttpClient(handler));
+        model = new OpenAILanguageModel(config, null, new HttpClient(handler));
         await model.CompleteAsync("Hello");
 
         string requestUrl = handler.LastRequest.RequestUri.AbsoluteUri.ToLower();
@@ -77,7 +79,7 @@ public class TestLanguageModel : TypeChatTest
 
         var (jsonResponse, expected) = CannedResponse();
         var handler = new MockHttpHandler(jsonResponse);
-        using LanguageModel model = new LanguageModel(config, null, new HttpClient(handler));
+        using OpenAILanguageModel model = new OpenAILanguageModel(config, null, new HttpClient(handler));
         await model.CompleteAsync("Hello");
 
         HttpRequestMessage lastRequest = handler.LastRequest;

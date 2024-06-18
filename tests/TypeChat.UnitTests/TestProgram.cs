@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 using System.Reflection;
+using Microsoft.TypeChat.LanguageModels;
 
 namespace Microsoft.TypeChat.Tests;
 

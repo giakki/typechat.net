@@ -43,7 +43,7 @@ internal static class Extensions
         return true;
     }
 
-    public static JsonTranslator<T> CreateTranslator<T>(this Config config)
+    public static JsonTranslator<T> CreateTranslator<T>(this ExampleConfig config)
     {
         return new JsonTranslator<T>(
             new ChatLanguageModel(config.OpenAI),

@@ -2,6 +2,7 @@
 
 using System.Text;
 using Microsoft.TypeChat;
+using Microsoft.TypeChat.Examples;
 using Microsoft.TypeChat.Schema;
 
 namespace CoffeeShop;
@@ -21,7 +22,7 @@ public class CoffeeShop : ConsoleApp
         // Each with a different vocab specific to the request
         // E.g. you could service a different vocab to a Vegan user. Or show more options to a Premimum user
         _translator = new JsonTranslator<Cart>(
-                   new ChatLanguageModel(Config.LoadOpenAI()),
+                   new ChatLanguageModel(ExampleConfig.LoadOpenAI()),
                    new TypeValidator<Cart>(_vocabs)
                );
         _translator.MaxRepairAttempts = 3;

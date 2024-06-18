@@ -4,6 +4,8 @@ using Calendar;
 using CoffeeShop;
 using HealthData;
 using Microsoft.TypeChat;
+using Microsoft.TypeChat.Examples;
+using Microsoft.TypeChat.LanguageModels;
 using Restaurant;
 using Sentiment;
 
@@ -15,8 +17,8 @@ public class SchemaHierarchyApp : ConsoleApp
 
     public SchemaHierarchyApp()
     {
-        var model = new LanguageModel(Config.LoadOpenAI());
-        var embeddingModel = new TextEmbeddingModel(Config.LoadOpenAI("OpenAI_Embedding"));
+        var model = new OpenAILanguageModel(ExampleConfig.LoadOpenAI());
+        var embeddingModel = new TextEmbeddingModel(ExampleConfig.LoadOpenAI("OpenAI_Embedding"));
         _translator = new HierarchicalJsonTranslator(model, embeddingModel);
     }
 

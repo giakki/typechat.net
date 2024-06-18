@@ -2,6 +2,8 @@
 
 using System.Text;
 using Microsoft.TypeChat;
+using Microsoft.TypeChat.Examples;
+using Microsoft.TypeChat.LanguageModels;
 using Microsoft.TypeChat.Schema;
 
 namespace CoffeeShop;
@@ -13,7 +15,7 @@ public class CoffeeShopApp : ConsoleApp
     public CoffeeShopApp()
     {
         _translator = new JsonTranslator<Cart>(
-            new LanguageModel(Config.LoadOpenAI())
+            new OllamaLanguageModel(ExampleConfig.LoadOllama())
         );
         _translator.MaxRepairAttempts = 3;
         // Uncomment to see ALL raw messages to and from the AI

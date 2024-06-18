@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Examples;
 using Microsoft.SemanticKernel;
 using Microsoft.TypeChat;
+using Microsoft.TypeChat.Config;
 
 namespace Plugins;
 
@@ -53,7 +55,7 @@ public class PluginApp : ConsoleApp
 
     void InitPlugins()
     {
-        _config = Config.LoadOpenAI();
+        _config = ExampleConfig.LoadOpenAI();
         _kernel = _config.CreateKernel();
         _kernel.Plugins.AddFromObject(new ShellPlugin());
         _kernel.Plugins.AddFromObject(new FoldersPlugin());

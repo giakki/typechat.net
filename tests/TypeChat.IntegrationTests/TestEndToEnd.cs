@@ -1,12 +1,15 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Examples;
+using Microsoft.TypeChat.LanguageModels;
+
 namespace Microsoft.TypeChat.Tests;
 
-public class TestEndToEnd : TypeChatTest, IClassFixture<Config>
+public class TestEndToEnd : TypeChatTest, IClassFixture<ExampleConfig>
 {
-    Config _config;
+    ExampleConfig _config;
 
-    public TestEndToEnd(Config config, ITestOutputHelper output)
+    public TestEndToEnd(ExampleConfig config, ITestOutputHelper output)
         : base(output)
     {
         _config = config;
@@ -133,7 +136,7 @@ public class TestEndToEnd : TypeChatTest, IClassFixture<Config>
     {
         Skip.If(!CanRunEndToEndTest(_config));
 
-        using LanguageModel lm = new LanguageModel(_config.OpenAI);
+        using OpenAILanguageModel lm = new OpenAILanguageModel(_config.OpenAI);
         await TranslateSentiment(lm);
     }
 
@@ -148,7 +151,7 @@ public class TestEndToEnd : TypeChatTest, IClassFixture<Config>
         prompt.AppendResponse("Give me a time range, like fortnight");
         prompt.Append("What is the date in a fortnight?");
 
-        LanguageModel lm = new LanguageModel(_config.OpenAI);
+        OpenAILanguageModel lm = new OpenAILanguageModel(_config.OpenAI);
         TranslationSettings settings = new TranslationSettings
         {
             MaxTokens = 1000,

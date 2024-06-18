@@ -1,12 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Examples;
+
 namespace Microsoft.TypeChat.Tests;
 
-public class TestVectorized_EndToEnd : TypeChatTest, IClassFixture<Config>
+public class TestVectorized_EndToEnd : TypeChatTest, IClassFixture<ExampleConfig>
 {
-    Config _config;
+    ExampleConfig _config;
 
-    public TestVectorized_EndToEnd(Config config, ITestOutputHelper output)
+    public TestVectorized_EndToEnd(ExampleConfig config, ITestOutputHelper output)
         : base(output)
     {
         _config = config;
