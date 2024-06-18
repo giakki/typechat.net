@@ -1,12 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Examples;
+
 namespace Microsoft.TypeChat.Tests;
 
-public class TestKernel : TypeChatTest, IClassFixture<Config>
+public class TestKernel : TypeChatTest, IClassFixture<ExampleConfig>
 {
-    Config _config;
+    ExampleConfig _config;
 
-    public TestKernel(ITestOutputHelper output, Config config)
+    public TestKernel(ITestOutputHelper output, ExampleConfig config)
         : base(output)
     {
         _config = config;
@@ -18,16 +20,16 @@ public class TestKernel : TypeChatTest, IClassFixture<Config>
         Skip.If(!CanRunEndToEndTest(_config));
 
         IKernelBuilder kb = Kernel.CreateBuilder();
-        kb.WithChatModels(_config.OpenAI, Config.ModelNames.Gpt35Turbo, Config.ModelNames.Gpt4);
+        kb.WithChatModels(_config.OpenAI, ExampleConfig.ModelNames.Gpt35Turbo, ExampleConfig.ModelNames.Gpt4);
         Kernel kernel = kb.Build();
 
-        var model = kernel.TextCompletionModel(Config.ModelNames.Gpt35Turbo);
+        var model = kernel.TextCompletionModel(ExampleConfig.ModelNames.Gpt35Turbo);
         Assert.NotNull(model);
-        Assert.Equal(model.ModelInfo.Name, Config.ModelNames.Gpt35Turbo);
+        Assert.Equal(model.ModelInfo.Name, ExampleConfig.ModelNames.Gpt35Turbo);
 
-        var languageModel = kernel.ChatLanguageModel(Config.ModelNames.Gpt4);
+        var languageModel = kernel.ChatLanguageModel(ExampleConfig.ModelNames.Gpt4);
         Assert.NotNull(languageModel);
-        Assert.Equal(languageModel.ModelInfo.Name, Config.ModelNames.Gpt4);
+        Assert.Equal(languageModel.ModelInfo.Name, ExampleConfig.ModelNames.Gpt4);
     }
 
     [SkippableFact]

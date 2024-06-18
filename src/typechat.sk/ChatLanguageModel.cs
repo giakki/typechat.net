@@ -1,4 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+﻿using Microsoft.TypeChat.Config;
+using Microsoft.TypeChat.LanguageModels;
 
 namespace Microsoft.TypeChat;
 
@@ -16,14 +17,19 @@ public class ChatLanguageModel : ILanguageModel
     /// </summary>
     /// <param name="config"></param>
     /// <param name="model">information about the model to create</param>
-    public ChatLanguageModel(OpenAIConfig config, ModelInfo? model = null)
+    public ChatLanguageModel(TypeChatConfig config, ModelInfo? model = null)
     {
         ArgumentVerify.ThrowIfNull(config, nameof(config));
         config.Validate();
 
         model ??= config.Model;
-        Kernel kernel = config.CreateKernel();
-        _service = kernel.GetRequiredService<IChatCompletionService>(model.Name);
+
+        if (config is OpenAIConfig openAIConfig)
+        {
+            Kernel kernel = openAIConfig.CreateKernel();
+            _service = kernel.GetRequiredService<IChatCompletionService>(model.Name);
+        }
+
         _model = model;
     }
 

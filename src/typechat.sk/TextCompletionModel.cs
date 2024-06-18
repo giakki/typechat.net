@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 using Microsoft.SemanticKernel.TextGeneration;
+using Microsoft.TypeChat.Config;
+using Microsoft.TypeChat.LanguageModels;
 
 namespace Microsoft.TypeChat;
 
@@ -44,7 +46,7 @@ public class TextCompletionModel : ILanguageModel
     {
         OpenAIPromptExecutionSettings? requestSettings = ToRequestSettings(settings);
         string request = prompt.ToString(IncludeSectionSource);
-        var response = await _service.GetTextContentsAsync(request, requestSettings,_kernel, cancelToken).ConfigureAwait(false);
+        var response = await _service.GetTextContentsAsync(request, requestSettings, _kernel, cancelToken).ConfigureAwait(false);
         return response.Count > 0 ? response[0].Text : string.Empty;
     }
 

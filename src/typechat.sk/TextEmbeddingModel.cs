@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Config;
 using Microsoft.TypeChat.Embeddings;
 
 namespace Microsoft.TypeChat;
@@ -21,10 +22,14 @@ public class TextEmbeddingModel
         ArgumentVerify.ThrowIfNull(config, nameof(config));
         config.Validate();
 
-        IKernelBuilder kb = Kernel.CreateBuilder();
-        kb.WithEmbeddingModel(config.Model, config);
+        if (config is OpenAIConfig openAIConfig)
+        {
+            IKernelBuilder kb = Kernel.CreateBuilder();
+            kb.WithEmbeddingModel(config.Model, config);
 
-        _kernel = kb.Build();
+            _kernel = kb.Build();
+        }
+
         modelInfo ??= config.Model;
         _model = _kernel.GetRequiredService<ITextEmbeddingGenerationService>(modelInfo.Name);
         _modelInfo = modelInfo;

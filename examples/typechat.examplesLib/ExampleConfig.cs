@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-namespace Microsoft.TypeChat;
+using Microsoft.TypeChat.Config;
+
+namespace Microsoft.TypeChat.Examples;
 
 /// <summary>
 /// Simplifies loading configuration for examples from settings files
 /// </summary>
-public class Config
+public class ExampleConfig
 {
     public const string DefaultConfigFile = "appSettings.json";
     public const string DefaultConfigFile_Dev = "appSettings.Development.json";
@@ -47,20 +49,34 @@ public class Config
         return config;
     }
 
+    public static OllamaConfig LoadOllama(string? sectionName = null)
+    {
+        sectionName ??= "Ollama";
+        OllamaConfig config = LoadConfig<OllamaConfig>(DefaultConfigFile, DefaultConfigFile_Dev, sectionName);
+
+        return config;
+    }
+
     OpenAIConfig? _openAI;
     OpenAIConfig? _openAIEmbeddings;
+    OllamaConfig? _ollama;
+    OllamaConfig? _ollamaEmbeddings;
 
-    public Config()
+    public ExampleConfig()
     {
         if (File.Exists(DefaultConfigFile) && File.Exists(DefaultConfigFile_Dev))
         {
             _openAI = LoadOpenAI();
             _openAIEmbeddings = LoadOpenAI("OpenAI_Embeddings");
+            _ollama = LoadOllama();
+            _ollamaEmbeddings = LoadOllama("OpenAI_Embeddings");
         }
         else
         {
             _openAI = OpenAIConfig.FromEnvironment();
             _openAIEmbeddings = OpenAIConfig.FromEnvironment(isEmbedding: true);
+            _ollama = OllamaConfig.FromEnvironment();
+            _ollamaEmbeddings = OllamaConfig.FromEnvironment(isEmbedding: true);
         }
     }
 
@@ -68,13 +84,17 @@ public class Config
     /// Configuration for OpenAI language models
     /// </summary>
     public OpenAIConfig OpenAI => _openAI;
+    public OllamaConfig Ollama => _ollama;
 
     /// <summary>
     /// Configuration for OpenAI embeddings models
     /// </summary>
     public OpenAIConfig? OpenAIEmbeddings => _openAIEmbeddings;
+    public OllamaConfig? OllamaEmbeddings => _ollamaEmbeddings;
 
     public bool HasOpenAI => (_openAI is not null);
+    public bool HasOllama => (_ollama is not null);
 
     public bool HasOpenAIEmbeddings => (_openAIEmbeddings is not null);
+    public bool HasOllamaEmbeddings => (_ollamaEmbeddings is not null);
 }

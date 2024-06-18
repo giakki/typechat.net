@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 using Microsoft.TypeChat;
+using Microsoft.TypeChat.Examples;
+using Microsoft.TypeChat.LanguageModels;
 using Microsoft.TypeChat.Schema;
 
 namespace Calendar;
@@ -12,7 +14,7 @@ public class CalendarApp : ConsoleApp
     public CalendarApp()
     {
         _translator = new JsonTranslator<CalendarActions>(
-            new LanguageModel(Config.LoadOpenAI())
+            new OpenAILanguageModel(ExampleConfig.LoadOpenAI())
         );
 
         // Uncomment to see ALL raw messages to and from the AI

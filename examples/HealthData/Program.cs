@@ -2,6 +2,7 @@
 
 using Microsoft.TypeChat;
 using Microsoft.TypeChat.Dialog;
+using Microsoft.TypeChat.Examples;
 using Microsoft.TypeChat.Schema;
 
 namespace HealthData;
@@ -13,7 +14,7 @@ public class HealthDataAgent : ConsoleApp
     public HealthDataAgent()
     {
         // Create an agent with history
-        _agent = new AgentWithHistory<HealthDataResponse>(new ChatLanguageModel(Config.LoadOpenAI()));
+        _agent = new AgentWithHistory<HealthDataResponse>(new ChatLanguageModel(ExampleConfig.LoadOpenAI()));
         // Instruct the agent on how it should act
         GiveAgentInstructions();
         // We only capture the questions that the model asked us into history

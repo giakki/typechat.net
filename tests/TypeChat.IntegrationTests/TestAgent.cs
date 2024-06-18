@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Examples;
 namespace Microsoft.TypeChat.Tests;
 
-public class TestAgent : TypeChatTest, IClassFixture<Config>
+public class TestAgent : TypeChatTest, IClassFixture<ExampleConfig>
 {
-    Config _config;
+    ExampleConfig _config;
     NamedVocab _desserts;
 
-    public TestAgent(Config config)
+    public TestAgent(ExampleConfig config)
     {
         _config = config;
     }

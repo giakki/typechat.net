@@ -1,12 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Examples;
+
 namespace Microsoft.TypeChat.Tests;
 
-public class TestClassification : TypeChatTest, IClassFixture<Config>
+public class TestClassification : TypeChatTest, IClassFixture<ExampleConfig>
 {
-    Config _config;
+    ExampleConfig _config;
 
-    public TestClassification(Config config, ITestOutputHelper output)
+    public TestClassification(ExampleConfig config, ITestOutputHelper output)
         : base(output)
     {
         _config = config;

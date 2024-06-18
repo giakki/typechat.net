@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-namespace Microsoft.TypeChat;
+namespace Microsoft.TypeChat.Config;
 
 /// <summary>
 /// OpenAI configuration
 /// Can be initialized either from environment variables or from config files
 /// </summary>
-public class OpenAIConfig
+public class OpenAIConfig : TypeChatConfig
 {
     /// <summary>
     /// Names of environment variables
@@ -59,11 +59,6 @@ public class OpenAIConfig
     public bool Azure { get; set; } = true;
 
     /// <summary>
-    /// Api endpoint
-    /// </summary>
-    public string Endpoint { get; set; }
-
-    /// <summary>
     /// Api key to use
     /// </summary>
     public string ApiKey { get; set; }
@@ -74,29 +69,15 @@ public class OpenAIConfig
     public string? Organization { get; set; }
 
     /// <summary>
-    /// Model name
-    /// </summary>
-    public string? Model { get; set; }
-
-    /// <summary>
     /// Api version
     /// </summary>
     public string ApiVersion { get; set; } = "2023-05-15";
 
     /// <summary>
-    /// Http Settings
-    /// </summary>
-    public int TimeoutMs { get; set; } = 15 * 1000;
-
-    public int MaxRetries { get; set; } = 3;
-
-    public int MaxPauseMs { get; set; } = 1000; // 1000 milliseconds
-
-    /// <summary>
     /// Validate the configuration
     /// </summary>
     /// <param name="configFileName">(optional) Config file the settings came from</param>
-    public void Validate(string configFileName = default)
+    public override void Validate(string configFileName = default)
     {
         configFileName ??= string.Empty;
 

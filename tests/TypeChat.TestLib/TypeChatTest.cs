@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Config;
+using Microsoft.TypeChat.Examples;
 using System.Reflection;
 
 namespace Microsoft.TypeChat.Tests;
@@ -68,14 +70,14 @@ public class TypeChatTest
         }
     }
 
-    public bool CanRunEndToEndTest(Config config)
+    public bool CanRunEndToEndTest(ExampleConfig config)
     {
         return (config.HasOpenAI &&
                 !string.IsNullOrEmpty(config.OpenAI.ApiKey) &&
                 config.OpenAI.ApiKey != "?");
     }
 
-    public bool CanRunEndToEndTest(Config config, string testName)
+    public bool CanRunEndToEndTest(ExampleConfig config, string testName)
     {
         if (CanRunEndToEndTest(config))
         {
@@ -85,14 +87,14 @@ public class TypeChatTest
         return false;
     }
 
-    public bool CanRunEndToEndTest_Embeddings(Config config)
+    public bool CanRunEndToEndTest_Embeddings(ExampleConfig config)
     {
         return (config.HasOpenAIEmbeddings &&
                 !string.IsNullOrEmpty(config.OpenAIEmbeddings.ApiKey) &&
                 config.OpenAIEmbeddings.ApiKey != "?");
     }
 
-    public bool CanRunEndToEndTest_Embeddings(Config config, string testName)
+    public bool CanRunEndToEndTest_Embeddings(ExampleConfig config, string testName)
     {
         if (CanRunEndToEndTest_Embeddings(config))
         {

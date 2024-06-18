@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-namespace Microsoft.TypeChat;
+using Microsoft.TypeChat.Config;
+
+namespace Microsoft.TypeChat.LanguageModels;
 
 /// <summary>
 /// A lightweight ILanguageModel implementation over OpenAI or Azure OpenAI Chat Completion REST API endpoint
 /// </summary>
-public class LanguageModel : ILanguageModel, IDisposable
+public class OpenAILanguageModel : ILanguageModel, IDisposable
 {
     static TranslationSettings s_defaultSettings = new TranslationSettings();
 
@@ -21,7 +23,7 @@ public class LanguageModel : ILanguageModel, IDisposable
     /// <param name="config">configuration to use</param>
     /// <param name="model">information about the target model</param>
     /// <param name="client">http client to use</param>
-    public LanguageModel(OpenAIConfig config, ModelInfo? model = null, HttpClient? client = null)
+    public OpenAILanguageModel(OpenAIConfig config, ModelInfo? model = null, HttpClient? client = null)
     {
         ArgumentVerify.ThrowIfNull(config, nameof(config));
         config.Validate();
@@ -105,8 +107,8 @@ public class LanguageModel : ILanguageModel, IDisposable
             return new Request
             {
                 messages = Message.Create(prompt),
-                temperature = (settings.Temperature > 0) ? settings.Temperature : 0,
-                max_tokens = (settings.MaxTokens > 0) ? settings.MaxTokens : null
+                temperature = settings.Temperature > 0 ? settings.Temperature : 0,
+                max_tokens = settings.MaxTokens > 0 ? settings.MaxTokens : null
             };
         }
     }

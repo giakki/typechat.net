@@ -1,5 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 using Microsoft.TypeChat;
+using Microsoft.TypeChat.Config;
+using Microsoft.TypeChat.Examples;
+using Microsoft.TypeChat.LanguageModels;
 
 namespace Sentiment;
 
@@ -9,11 +12,11 @@ public class SentimentApp : ConsoleApp
 
     public SentimentApp()
     {
-        OpenAIConfig config = Config.LoadOpenAI();
+        OpenAIConfig config = ExampleConfig.LoadOpenAI();
         // Although this sample uses config files, you can also load config from environment variables
         // OpenAIConfig config = OpenAIConfig.LoadFromJsonFile("your path");
         // OpenAIConfig config = OpenAIConfig.FromEnvironment();
-        _translator = new JsonTranslator<SentimentResponse>(new LanguageModel(config));
+        _translator = new JsonTranslator<SentimentResponse>(new OpenAILanguageModel(config));
     }
 
     public override async Task ProcessInputAsync(string input, CancellationToken cancelToken)

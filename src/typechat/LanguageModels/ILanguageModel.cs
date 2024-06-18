@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-namespace Microsoft.TypeChat;
+namespace Microsoft.TypeChat.LanguageModels;
 
 /// <summary>
 /// JsonTranslator uses this interface to communicates with AI models that can translate natural language requests to JSON

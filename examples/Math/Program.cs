@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 using Microsoft.TypeChat;
+using Microsoft.TypeChat.Examples;
+using Microsoft.TypeChat.LanguageModels;
 using Microsoft.TypeChat.Schema;
 
 namespace Math;
@@ -14,7 +16,7 @@ public class MathApp : ConsoleApp
     {
         _api = new MathAPI();
         _translator = new ProgramTranslator<IMathAPI>(
-            new LanguageModel(Config.LoadOpenAI()),
+            new OpenAILanguageModel(ExampleConfig.LoadOpenAI()),
             _api
         );
         _translator.MaxRepairAttempts = 3;

@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using Microsoft.TypeChat.Examples;
+
 namespace Microsoft.TypeChat.Tests;
 
 public static class Extensions
@@ -43,7 +45,7 @@ public static class Extensions
         return true;
     }
 
-    public static JsonTranslator<T> CreateTranslator<T>(this Config config)
+    public static JsonTranslator<T> CreateTranslator<T>(this ExampleConfig config)
     {
         return new JsonTranslator<T>(
             new ChatLanguageModel(config.OpenAI),
